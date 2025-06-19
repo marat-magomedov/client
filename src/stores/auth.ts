@@ -66,7 +66,14 @@ export const useAuthStore = defineStore('auth', () => {
         return;
       }
       const response = await authAPI.getProfile();
-      state.value.profile = response.data as VenueProfile;
+      const profile = response.data as VenueProfile;
+      if (profile.qr_code) {
+        profile.qr_code = profile.qr_code.replace(
+          /^https?:\/\/(?:[^\/]+)\/(media\/qr_codes\/.*)$/,
+          'https://176.124.213.151/$1'
+        );
+      }
+      state.value.profile = profile;
     } catch (err: any) {
       console.error('Fetch profile error:', err);
       error.value = err.response?.data?.detail || 'Ошибка при загрузке профиля';
@@ -83,7 +90,14 @@ export const useAuthStore = defineStore('auth', () => {
       loading.value = true;
       error.value = null;
       const response = await authAPI.updateProfile(data);
-      state.value.profile = response.data as VenueProfile;
+      const profile = response.data as VenueProfile;
+      if (profile.qr_code) {
+        profile.qr_code = profile.qr_code.replace(
+          /^https?:\/\/(?:[^\/]+)\/(media\/qr_codes\/.*)$/,
+          'https://176.124.213.151/$1'
+        );
+      }
+      state.value.profile = profile;
     } catch (err: any) {
       console.error('Update profile error:', err);
       error.value = err.response?.data?.detail || 'Ошибка при обновлении профиля';
