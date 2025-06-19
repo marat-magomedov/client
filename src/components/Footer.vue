@@ -51,9 +51,9 @@
               </a>
             </li>
             <li>
-              <a href="https://djstore.ru" target="_blank" class="group flex items-center text-light-text-secondary dark:text-gray-400 hover:text-light-text dark:hover:text-white transition-all duration-300">
+              <a href="http://djstore.fun" target="_blank" class="group flex items-center text-light-text-secondary dark:text-gray-400 hover:text-light-text dark:hover:text-white transition-all duration-300">
                 <GlobeAltIcon class="w-5 h-5 mr-3 text-blue-400 group-hover:rotate-12 transition-transform" />
-                djstore.ru
+                djstore.fun
               </a>
             </li>
           </ul>
