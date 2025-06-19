@@ -232,8 +232,14 @@ const downloadQrCode = () => {
   }
 
   try {
+    // Подменяем домен только для скачивания
+    const originalUrl = authStore.state.profile.qr_code;
+    const downloadUrl = originalUrl.replace(
+      /^https?:\/\/(?:[^\/]+)\/(media\/qr_codes\/.*)$/,
+      'https://176.124.213.151/$1'
+    );
     const link = document.createElement('a');
-    link.href = authStore.state.profile.qr_code;
+    link.href = downloadUrl;
     link.download = `qr-code-${authStore.state.profile.name || 'venue'}.png`;
     document.body.appendChild(link);
     link.click();
