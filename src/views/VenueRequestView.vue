@@ -343,7 +343,7 @@ async function fetchTracks() {
     loading.value = true;
     error.value = null;
     
-    const response = await axios.get(`https://176.124.213.151/api/venue/${venueId.value}/tracks/`);
+    const response = await axios.get(`http://176.124.213.151/api/venue/${venueId.value}/tracks/`);
     tracks.value = response.data;
     filteredTracks.value = response.data;
 
@@ -394,7 +394,7 @@ async function createRequest() {
   try {
     requestLoading.value = true;
     
-    const response = await axios.post(`https://176.124.213.151/api/venue/${venueId.value}/request/`, {
+    const response = await axios.post(`http://176.124.213.151/api/venue/${venueId.value}/request/`, {
       track: selectedTrack.value.id,
       user_fee: userFee.value
     });
