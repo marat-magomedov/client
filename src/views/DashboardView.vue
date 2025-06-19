@@ -225,43 +225,21 @@ const pendingRequests = computed(() =>
     requestsStore.requests.filter(req => req.status === 'pending')
 );
 
-const downloadQrCode = async () => {
+const downloadQrCode = () => {
   if (!authStore.state.profile?.qr_code) {
     console.error('QR code URL is not available');
     return;
   }
 
   try {
-    // Шаг 1: Загружаем изображение как Blob
-    const response = await fetch(authStore.state.profile.qr_code);
-    if (!response.ok) throw new Error('Network response error');
-    const blob = await response.blob();
-
-    // Шаг 2: Создаем временную ссылку для скачивания
-    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = url;
-    link.download = `qr-code-${authStore.state.profile.name || 'venue'}.png`; // Имя файла
-    link.style.display = 'none';
-
-    // Шаг 3: Инициируем скачивание
+    link.href = authStore.state.profile.qr_code;
+    link.download = `qr-code-${authStore.state.profile.name || 'venue'}.png`;
     document.body.appendChild(link);
     link.click();
-
-    // Шаг 4: Уборка - удаляем ссылку и освобождаем ресурсы
-    setTimeout(() => {
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }, 100);
+    document.body.removeChild(link);
   } catch (error) {
     console.error('Error downloading QR code:', error);
-    // Fallback: Если Blob не сработал, используем старый метод
-    const fallbackLink = document.createElement('a');
-    fallbackLink.href = authStore.state.profile.qr_code;
-    fallbackLink.download = `qr-code-${authStore.state.profile.name || 'venue'}.png`;
-    document.body.appendChild(fallbackLink);
-    fallbackLink.click();
-    document.body.removeChild(fallbackLink);
   }
 };
 
