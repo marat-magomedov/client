@@ -245,7 +245,7 @@ async function fetchPaymentInfo() {
   try {
     loading.value = true;
     error.value = null;
-    const response = await axios.get(`https://176.124.213.151/api/requests/pay/${paymentToken.value}/`);
+    const response = await axios.get(`https://marat-magomedov-server-6143.twc1.net/api/requests/pay/${paymentToken.value}/`);
     requestData.value = response.data;
   } catch (err: any) {
     console.error('Error fetching payment info:', err);
@@ -260,7 +260,7 @@ async function handlePayment() {
     paymentLoading.value = true;
     error.value = null;
 
-    await axios.post(`https://176.124.213.151/api/requests/pay/${paymentToken.value}/`, {
+    await axios.post(`https://marat-magomedov-server-6143.twc1.net/api/requests/pay/${paymentToken.value}/`, {
       amount: requestData.value?.user_fee
     });
 

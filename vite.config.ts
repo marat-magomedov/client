@@ -13,7 +13,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://176.124.213.151',
+        target: 'https://marat-magomedov-server-6143.twc1.net',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
