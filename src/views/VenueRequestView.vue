@@ -343,7 +343,7 @@ async function fetchTracks() {
     loading.value = true;
     error.value = null;
     
-    const response = await axios.get(`http://127.0.0.1:8000/api/venue/${venueId.value}/tracks/`);
+    const response = await axios.get(`https://marat-magomedov-server-6143.twc1.net/api/venue/${venueId.value}/tracks/`);
     tracks.value = response.data;
     filteredTracks.value = response.data;
 
@@ -394,7 +394,7 @@ async function createRequest() {
   try {
     requestLoading.value = true;
     
-    const response = await axios.post(`http://127.0.0.1:8000/api/venue/${venueId.value}/request/`, {
+    const response = await axios.post(`https://marat-magomedov-server-6143.twc1.net/api/venue/${venueId.value}/request/`, {
       track: selectedTrack.value.id,
       user_fee: userFee.value
     });
