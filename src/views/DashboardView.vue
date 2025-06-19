@@ -106,8 +106,8 @@
                     <h3 class="text-lg md:text-xl font-semibold text-light-text dark:text-gray-200 mb-4">QR-код для заказа</h3>
                     <div class="p-4 bg-light-bg-tertiary dark:bg-gray-900/30 rounded-2xl border-2 border-purple-400/20 hover:border-purple-400/40 transition-all inline-block shadow-lg shadow-purple-500/10">
                       <img
-                          v-if="authStore.state.profile.qr_code"
-                          :src="authStore.state.profile.qr_code"
+                          v-if="safeQrCodeUrl"
+                          :src="safeQrCodeUrl"
                           alt="QR-код"
                           class="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto"
                       />
@@ -225,16 +225,21 @@ const pendingRequests = computed(() =>
     requestsStore.requests.filter(req => req.status === 'pending')
 );
 
+const safeQrCodeUrl = computed(() => {
+  if (!authStore.state.profile?.qr_code) return '';
+  return authStore.state.profile.qr_code.replace(/^http:\/\//i, 'https://');
+});
+
 const downloadQrCode = () => {
-  if (!authStore.state.profile?.qr_code) {
+  if (!safeQrCodeUrl.value) {
     console.error('QR code URL is not available');
     return;
   }
 
   try {
     const link = document.createElement('a');
-    link.href = authStore.state.profile.qr_code;
-    link.download = `qr-code-${authStore.state.profile.name || 'venue'}.png`;
+    link.href = safeQrCodeUrl.value;
+    link.download = `qr-code-${authStore.state.profile?.name || 'venue'}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
