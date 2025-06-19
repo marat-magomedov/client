@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api/';
+const API_URL = 'https://marat-magomedov-server-6143.twc1.net/api/';
 
 export const api = axios.create({
   baseURL: API_URL,
